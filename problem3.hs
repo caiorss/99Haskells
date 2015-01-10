@@ -1,6 +1,6 @@
 elementAt :: [a] -> Int -> a
 elementAt xs n = elemAt xs 1
-	where elemAt [] i = error "There are no elements in an empty list!"
+	where elemAt [] i = error $ (show i)++" does not exist in that list!"
 	      elemAt (x:xs) i 
 	          | i == n = x
 	          | otherwise = elemAt xs (i+1)
