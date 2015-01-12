@@ -4,9 +4,6 @@ compress :: (Eq a) => [a] -> [a]
 compress [] = []
 compress (x:xs) = x:(comp xs x)
 	where comp [] acc = []
-	      comp [x] acc 
-	          | x == acc = []
-	          | otherwise = [x]
 	      comp (x:xs) acc
 	          | x == acc = comp xs acc
 	          | otherwise = x:(comp xs x)
