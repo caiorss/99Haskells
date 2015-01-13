@@ -21,6 +21,12 @@ pack' [] = []
 pack' (x:xs) = let (group,rest) = span (==x) xs
                in (x:group):(pack' rest)
 
+-- new version from my brain
+pack'' :: (Eq a) => [a] -> [[a]]
+pack'' [] = []
+pack'' l@(x:xs) = (takeWhile (==x) l):(pack $ dropWhile (==x) l)
+
 main = do
 	print $ pack [1,1,1,1,2,2,2,3,4,4,4,4,5,5,6,6]
 	print $ pack' [1,1,1,1,2,2,2,3,4,4,4,4,5,5,6,6]
+	print $ pack'' [1,1,1,1,2,2,2,3,4,4,4,4,5,5,6,6]
