@@ -1,6 +1,4 @@
 -- (**) Drop every N'th element from a list.
-import Data.List
-
 groupsOf :: Int -> [a] -> [[a]]
 groupsOf n xs = helper n xs []
 	where helper _ [] rest = [rest]
@@ -11,6 +9,9 @@ groupsOf n xs = helper n xs []
 dropevery :: Int -> [a] -> [a]
 dropevery n xs = concat . map init' . groupsOf n $ xs
     where init' = (\x -> if length x == n then init x else x)
+
+    -- this one was quite fun! I decided to come up with my own
+    -- "chunksOf" function from Data.List.Split and that added a bit of challenge
 
 main = do
     putStr $ "dropevery 2 [1,2,3,4,5,6,7,8,9,10,11] == "
