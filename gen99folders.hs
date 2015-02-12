@@ -1,10 +1,27 @@
 import Data.List
 import System.Directory
+import System.IO
 import System.Environment
 import Control.Monad
 
-createFolder :: String -> Int -> IO ()
-createFolder fldrName n = createDirectoryIfMissing False ("./"++fldrName++(show n))
+-- this program creates folders
+--    /folderName1
+--    /folderName2
+--    ...
+--    /folderNameN  
+-- for all i in N 
+-- where 'folderName' is the first command line arg
+--       'N' is the second command line arg
+
+-- must check if file exists!
+createFile :: String -> IO ()
+createFile fileName = writeFile path fileData
+    where path = "./"++fileName++"/"++fileName++".hs"
+          fileData = "import Data.List\n\n-- Function goes here:\n    raight hurr ;)\n\nmain = do\n"
+
+createFolder :: String -> IO ()
+createFolder folderName = do
+  createDirectoryIfMissing False ("./"++folderName)
 
 genNfoldersNamed :: [String] -> IO ()
 genNfoldersNamed [folderName,n] = genFldrs 1
@@ -12,7 +29,9 @@ genNfoldersNamed [folderName,n] = genFldrs 1
           genFldrs x 
               | x > m = putStrLn "Finished"
               | otherwise = do
-                   createFolder folderName x
+                   let fileFldrName = folderName++(show x)
+                   createFolder fileFldrName
+                   createFile fileFldrName
                    genFldrs (x+1)
 genNfoldersNamed _ = putStrLn "genNfoldersNamed takes exactly two arguments"
 
